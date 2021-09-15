@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
 import './App.css';
-import AdminActions from './orgnisms/AdminActions';
+import AdminActions from './components/orgnisms/AdminActions';
 
 
 

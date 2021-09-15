@@ -1,15 +1,15 @@
 import React, { Dispatch, ReactElement, ReactNode, useState } from 'react'
-import User from "../model/model"
+import User from "../../model/model"
 import Ulist from '../atoms/UList'
 import List from '../atoms/List'
 import { connect } from 'react-redux'
-import { getUsersAPI } from '../action'
+import { getUsersAPI } from '../../action'
 import Button from '../atoms/Button'
 import Input from '../atoms/Input'
 import styled from 'styled-components'
 import { ThunkDispatch } from 'redux-thunk'
 import { AnyAction } from 'redux'
-import { AppState } from '../store'
+import { AppState } from '../../store'
 
 
 
