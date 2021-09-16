@@ -1,22 +1,15 @@
-import React, { Component } from 'react'
+import React, {  HTMLAttributes } from "react";
 
-interface Props {
-    
-}
-interface State {
-    
+interface Props  extends HTMLAttributes<HTMLImageElement>{
+  variant : string
 }
 
-class Logo extends Component<Props, State> {
-    state = {}
+class Logo extends React.Component<Props> {
 
-    render() {
-        return (
-            <div>
-                
-            </div>
-        )
-    }
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  render() {
+    return <img {...this.props} src=""></img>;
+  }
 }
 
-export default Logo
+export default Logo;

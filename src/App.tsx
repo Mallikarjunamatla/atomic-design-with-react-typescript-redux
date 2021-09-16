@@ -1,25 +1,12 @@
-import React, { ReactNode } from 'react';
+import "./App.css";
+import AdminActions from "./components/orgnisms/admin/AdminActions";
 
-import './App.css';
-import AdminActions from './components/orgnisms/AdminActions';
+type Props = {
+  message: string;
+};
 
-
-
-
-
-interface Props {
-
-   
-   
-}
-function App(props : Props) {
-  return (
-    <div className="App">
-       <AdminActions >
-        
-       </AdminActions>
-    </div>
-  );
-}
+const App = (props: Props): JSX.Element => (
+  <AdminActions {...props}></AdminActions>
+);
 
 export default App;
