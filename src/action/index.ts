@@ -1,7 +1,7 @@
 import User from "../model/model";
 import { SET_LOADING_STATUS, GET_USERS, PostActionTypes } from "./actionType";
 import { Dispatch } from "redux";
- const baseUrl  = process.env.REACT_APP_API_BASE_URL
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
 export const setLoading = (status: boolean): PostActionTypes => {
   return {

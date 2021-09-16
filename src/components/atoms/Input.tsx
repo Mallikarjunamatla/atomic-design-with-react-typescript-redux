@@ -19,10 +19,7 @@ export interface Props extends HTMLAttributes<HTMLInputElement> {
   disabled?: boolean;
 }
 
-
 class Input extends Component<Props> {
-  
-
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   render() {
     return (

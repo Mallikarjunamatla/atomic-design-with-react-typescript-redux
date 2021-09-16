@@ -6,10 +6,7 @@ interface Props extends HTMLAttributes<HTMLImageElement> {
   variant: string;
 }
 
-
 class Icon extends Component<Props> {
-  
-
   render() {
     return (
       <>

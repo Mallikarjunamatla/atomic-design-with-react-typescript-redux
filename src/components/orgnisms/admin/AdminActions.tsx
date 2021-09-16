@@ -1,4 +1,4 @@
-import React, {ReactElement,useState } from "react";
+import React, { ReactElement, useState } from "react";
 import User from "../../../model/model";
 import Ulist from "../../atoms/UList";
 import List from "../../atoms/List";
@@ -12,7 +12,6 @@ import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { AppState } from "../../../store";
 import Span from "../../atoms/Span";
-
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const u = styled.div``;
@@ -50,12 +49,23 @@ function AdminActions(props: IProps): ReactElement {
 
   return (
     <>
-      <FirstHeading message="Admin UI" variant="primary">Admin UI</FirstHeading>
+      <FirstHeading message="Admin UI" variant="primary">
+        Admin UI
+      </FirstHeading>
       <Actions>
-        <Button data-testid="fetch-users" onClick={getUsers} value="fetch" variant="primary">
+        <Button
+          data-testid="fetch-users"
+          onClick={getUsers}
+          value="fetch"
+          variant="primary"
+        >
           {" "}
         </Button>
-        <Input  data-testid="search-users" placeholder="search user" variant="primary"></Input>
+        <Input
+          data-testid="search-users"
+          placeholder="search user"
+          variant="primary"
+        ></Input>
       </Actions>
 
       {props.users && (
@@ -63,10 +73,9 @@ function AdminActions(props: IProps): ReactElement {
           <Ulist variant="unordered">
             {props.users.map((user) => (
               <List variant="primary" key={user.id}>
-                 <Span >{user.id}</Span>
-                <Span >{user.name}</Span>
-                <Span >{user.email}</Span>
-               
+                <Span>{user.id}</Span>
+                <Span>{user.name}</Span>
+                <Span>{user.email}</Span>
               </List>
             ))}
           </Ulist>
@@ -76,7 +85,7 @@ function AdminActions(props: IProps): ReactElement {
   );
 }
 
-const mapStateToProps = (state: AppState)=> {
+const mapStateToProps = (state: AppState) => {
   return {
     loading: state.usersState.loading,
     users: state.usersState.users,
