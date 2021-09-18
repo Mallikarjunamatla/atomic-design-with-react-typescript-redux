@@ -2,7 +2,17 @@ import React, { Component, MouseEvent, ReactNode } from "react";
 import styled from "styled-components";
 
 const SpanElement = styled.span`
-  margin: 4%;
+  width: 30% ;
+  margin-left : 3%;
+  background-color: #adecad;
+  margin-left: 2%;
+  padding-left: 1%;
+  padding-top: 0.5%;
+  
+  @media (max-width : 768px){
+    width : auto;
+    margin-left: 1%;
+  }
 `;
 
 interface Props {

@@ -1,17 +1,20 @@
 import {
-  SET_LOADING_STATUS,
+
   GET_USERS,
   GetUsersStateType,
-  PostActionTypes,
+  ActionTypes,
+  SET_LOADING_STATUS,
+  SEARCH_USERS,
 } from "../action/actionType";
 
 export const initialState: GetUsersStateType = {
-  loading: false,
+  loading : false,
+  search : [],
   users: [],
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function usersDataReducer(state = initialState, action: PostActionTypes) {
+export  const   usersDataReducer = (state = initialState, action: ActionTypes ) => {
   switch (action.type) {
     case GET_USERS:
       return {
@@ -23,9 +26,13 @@ function usersDataReducer(state = initialState, action: PostActionTypes) {
         ...state,
         loading: action.status,
       };
+      case SEARCH_USERS:
+        return {
+          ...state,
+         search: action.payload,
+        };
     default:
       return state;
   }
 }
 
-export default usersDataReducer;

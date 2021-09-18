@@ -1,82 +1,92 @@
-import React from "react";
-import { createStore } from "redux";
+import { render as rtlRender,RenderResult,screen  } from "@testing-library/react";
+import { createStore, applyMiddleware, Store } from "redux";
+import rootReducer from "../../../../reducers/index";
+import thunk from "redux-thunk";
 import { Provider } from "react-redux";
-// import User from '../../../../model/model'
-import {
-  PostActionTypes,
-  GetUsersStateType,
-} from "../../../../action/actionType";
-import { cleanup, render, screen } from "@testing-library/react";
 import AdminActions from "../AdminActions";
+import { ReactNode } from "react";
+import { AppState } from "../../../../store";
+import fetchMock from "jest-fetch-mock/types";
 import userEvent from "@testing-library/user-event";
-// import fetchMock from 'jest-fetch-mock';
 
-afterEach(cleanup);
 
-const startingState: GetUsersStateType = {
-  loading: false,
-  users: [{ id: "1", name: "mallik", email: "mallik@12", role: "member" }],
+
+export interface RenderResultStore extends RenderResult {
+  store: Store
+}
+
+export interface RenderWithReduxType {
+  (
+    component: ReactNode,
+    props?: {
+      initialState: AppState
+      store?: Store
+    }
+  ): RenderResultStore
+}
+
+
+
+const render = (component : JSX.Element, initialState = {}, options = {}) => {
+  const store = createStore(rootReducer,initialState,applyMiddleware(thunk));
+  const Providers = ({ children }: any) => (
+    <Provider store={store}>{children}</Provider> 
+  );
+
+  return rtlRender(component, { wrapper: Providers, ...options });
 };
 
-function reducer(state = startingState, action: PostActionTypes) {
-  switch (action.type) {
-    case "SET_LOADING_STATUS":
-      return {
-        ...state,
-        loading: state.loading,
-      };
-    case "GET_USERS":
-      return {
-        ...state,
-        users: state.users,
-      };
-    default:
-      return state;
-  }
-}
+// global.fetch = jest.fn(() =>
+//   Promise.resolve({
+//     json: () => Promise.resolve([{}]),
+//   })
+// );
 
-function renderWithRedux(
-  component: JSX.Element,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  { initialState, store = createStore(reducer, startingState) } = {}
-) {
-  return {
-    ...render(<Provider store={store}>{component}</Provider>),
-  };
-}
+// beforeEach(() => {
+//   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+//   fetch.mockClear();
+// });
 
-const fetching = jest.fn();
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-window.fetch = fetching(() =>
-  Promise.resolve({
-    json: () => Promise.resolve([{ id: "1", name: "mallik", email: "@yml" }]),
-  })
-);
+// window.fetch = fetchMock
+// fetchMock.mockResolvedValueOnce(
+// // eslint-disable-next-line @typescript-eslint/require-await
+// {json :  () => [{}],}
+// )
+it("should render admin panel correctly", () => {
 
-beforeEach(() => {
-  fetching.mockClear();
-});
-describe("<AdminActions />", () => {
-  test('Should out put text "Admin UI', () => {
-    const { getByTestId } = renderWithRedux(<AdminActions></AdminActions>);
-    const linkElement = screen.getByText(/admin Ui/i, { exact: false });
-    //screen.debug()
-    expect(linkElement).toBeInTheDocument();
-  });
+          render(<AdminActions></AdminActions>)
+          
+       expect(screen.getByText(/admin ui/i)).toBeInTheDocument();
 });
 
-describe("<AdminActions />", () => {
-  test("should fetch all users", async () => {
-    const { getByTestId } = renderWithRedux(<AdminActions></AdminActions>);
-    userEvent.click(getByTestId("fetch-users"));
-    const items = await screen.findAllByRole("listitem");
 
-    expect(items).toHaveLength(2);
-  });
+
+
+
+it("should render admin panel correctly", async() => {
+
+  const mockSuccessResponse = [{id : "1", name:"mallik" ,email : "@yml", role:""}];
+    const mockJsonPromise = Promise.resolve(mockSuccessResponse);
+    const mockFetchPromise = Promise.resolve({
+        json: () => mockJsonPromise,
+    });
+    const globalRef:any =global;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    globalRef.fetch = jest.fn().mockImplementationOnce(() => mockFetchPromise);
+
+  
+      const { getByTestId } = render(<AdminActions></AdminActions>)
+      const ele = getByTestId("fetch-users")
+      userEvent.click(ele)
+          
+       expect( await screen.findByRole("listitem")).toBeInTheDocument();
 });
 
-function thunkMiddleware(
-  thunkMiddleware: any
-): import("redux").StoreEnhancer<{ dispatch: unknown }, {}> | undefined {
-  throw new Error("Function not implemented.");
-}
+
+
+
+// it("should render admin panel correctly", () => {
+//  const { getByTestId } = render(<AdminActions></AdminActions>)
+          
+// expect(screen.getByT(/admin ui/i)).toBeInTheDocument();
+// });

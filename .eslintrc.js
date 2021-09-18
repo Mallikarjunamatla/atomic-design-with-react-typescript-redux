@@ -10,10 +10,12 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:cypress/recommended"
   ],
   env: {
     node: true,
     es6: true,
     browser: true,
   },
+  
 };

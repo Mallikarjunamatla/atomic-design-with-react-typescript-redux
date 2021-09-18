@@ -3,7 +3,11 @@ import styled from "styled-components";
 
 const UnorderedList = styled.ul`
   width: 80%;
-  height: 20%;
+  height: 100vh;
+  margin-left: 5%;
+  padding-bottom: 2% ;
+  border-radius: 44px;
+
 `;
 
 export interface Props extends HTMLAttributes<HTMLUListElement> {
