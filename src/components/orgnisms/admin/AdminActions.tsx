@@ -39,13 +39,12 @@ const Actions = styled.div`
 //   search : User[],
 //   users: User[];
 
- 
 // }
 
-function AdminActions(props : any): ReactElement {
+function AdminActions(props: any): ReactElement {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [fetch, setFetch] = useState<boolean>(false);
-  const [users , setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   const getUsers = async (e: React.MouseEvent) => {
     setFetch(true);
@@ -58,57 +57,43 @@ function AdminActions(props : any): ReactElement {
     console.log("Hello");
   };
 
-
-
   const searchUsers = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setFetch(true);
     e.preventDefault();
     console.log("HI");
-    if(e.target.value.trim().length!==0){
+    if (e.target.value.trim().length !== 0) {
       await props.searchUsers();
       setUsers(props.search);
-    
-  }
-}
+    }
+  };
 
   //   const deleteUser =  ( e : React.MouseEvent, id:string) => {
   //     e.preventDefault()
   //     const yes =  window.confirm("Do yo want to delete user permentently?")
 
   //     if(yes){
-          
+
   //       const itemsArray = [...users];
   //       const index = itemsArray.findIndex(item => item.id === id);
   //      props.deleteUser(index)
-       
-        
 
   //     }
 
   // }
 
-  const  deleteUser  = (id: string) => {
-    
+  const deleteUser = (id: string) => {
     // // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     // // if(window.confirm("????")){
     //   void props.deleteUser(id);
 
-    
     //  console.log(id)
-          // props.deleteUser(id)
-          // .catch((err: any) => console.log(err))
-          // .then(() => console.log('this will succeed'))
-          // .catch(() => 'obligatory catch')
-          props.deleteUser(id)
-
-      
-    
+    // props.deleteUser(id)
+    // .catch((err: any) => console.log(err))
+    // .then(() => console.log('this will succeed'))
+    // .catch(() => 'obligatory catch')
+    props.deleteUser(id);
   };
 
-  
-   
-
- 
   return (
     <>
       <FirstHeading message="Admin UI" variant="primary">
@@ -134,22 +119,21 @@ function AdminActions(props : any): ReactElement {
       {users && (
         <Users>
           <Ulist variant="unordered">
-            {props.users.map((user : any) => (
+            {props.users.map((user: any) => (
               <List variant="primary" key={user.id}>
                 <Span>{user.name}</Span>
                 <Span>{user.email}</Span>
                 <Span>{user.role}</Span>
-                <Icon   variant="edit"></Icon>
-                
-               <span onClick={(e) => {
-                  e.preventDefault()
-                 void deleteUser(user.id)}}
+                <Icon variant="edit"></Icon>
+
+                <span
+                  onClick={(e) => {
+                    e.preventDefault();
+                    void deleteUser(user.id);
+                  }}
                 >
-                 <Icon  variant="delete"></Icon>
-                 </span>
-             
-               
-               
+                  <Icon variant="delete"></Icon>
+                </span>
               </List>
             ))}
           </Ulist>
@@ -159,23 +143,22 @@ function AdminActions(props : any): ReactElement {
   );
 }
 
-const mapStateToProps = (state: { usersDataReducer: { users: any; search: any }; } ) => {
+const mapStateToProps = (state: {
+  usersDataReducer: { users: any; search: any };
+}) => {
   return {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-   users : state.usersDataReducer.users,
-   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-   search : state.usersDataReducer.search,
-
-   
-    
+    users: state.usersDataReducer.users,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    search: state.usersDataReducer.search,
   };
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => ({
   getUsers: () => dispatch(getUsersAPI()),
-  searchUsers : (payload : any) => dispatch(searchUsersAPI(payload)),
-  deleteUser : (payload: { id: string; }) => dispatch(deleteUserAPI(payload))
+  searchUsers: (payload: any) => dispatch(searchUsersAPI(payload)),
+  deleteUser: (payload: { id: string }) => dispatch(deleteUserAPI(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminActions);

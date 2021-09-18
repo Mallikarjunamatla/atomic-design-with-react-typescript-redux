@@ -2,7 +2,7 @@ import React, { Component, ReactNode } from "react";
 import styled from "styled-components";
 
 const ListElement = styled.li`
- display: flex;
+  display: flex;
   height: 40px;
   background-color: #0203054e;
   border: 0.5px solid black;
@@ -12,7 +12,7 @@ const ListElement = styled.li`
   border-radius: 3%;
   color: black;
 
-  @media (max-width : 768px){
+  @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
     height: fit-content;

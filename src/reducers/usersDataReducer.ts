@@ -1,5 +1,4 @@
 import {
-
   GET_USERS,
   GetUsersStateType,
   ActionTypes,
@@ -8,13 +7,13 @@ import {
 } from "../action/actionType";
 
 export const initialState: GetUsersStateType = {
-  loading : false,
-  search : [],
+  loading: false,
+  search: [],
   users: [],
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export  const   usersDataReducer = (state = initialState, action: ActionTypes ) => {
+export const usersDataReducer = (state = initialState, action: ActionTypes) => {
   switch (action.type) {
     case GET_USERS:
       return {
@@ -26,13 +25,12 @@ export  const   usersDataReducer = (state = initialState, action: ActionTypes ) 
         ...state,
         loading: action.status,
       };
-      case SEARCH_USERS:
-        return {
-          ...state,
-         search: action.payload,
-        };
+    case SEARCH_USERS:
+      return {
+        ...state,
+        search: action.payload,
+      };
     default:
       return state;
   }
-}
-
+};

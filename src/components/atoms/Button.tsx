@@ -55,10 +55,8 @@ const SubmitButton = styled.button`
 `;
 
 export interface Props extends HTMLAttributes<HTMLButtonElement> {
-  variant: string,
-  value: string,
-  
- 
+  variant: string;
+  value: string;
 }
 
 class Button extends Component<Props> {

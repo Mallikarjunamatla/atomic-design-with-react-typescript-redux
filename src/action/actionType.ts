@@ -5,9 +5,9 @@ export const GET_USERS = "GET_USERS";
 export const SEARCH_USERS = "GET_USERS";
 
 export interface GetUsersStateType {
-  loading : boolean,
-  search : User[],
-  users: User[]
+  loading: boolean;
+  search: User[];
+  users: User[];
 }
 
 interface GetUsersActionType {
@@ -22,4 +22,7 @@ interface GetUsersLoadingActionType {
   type: typeof SET_LOADING_STATUS;
   status: boolean;
 }
-export type ActionTypes = GetUsersActionType | GetUsersLoadingActionType | SearchActionType ;
+export type ActionTypes =
+  | GetUsersActionType
+  | GetUsersLoadingActionType
+  | SearchActionType;
